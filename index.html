@@ -114,13 +114,19 @@ button:hover{box-shadow:none;filter:none}
 .aboutIn ul{padding-left:18px;line-height:1.8}
 .aboutIn .note{color:var(--muted);font-size:13px;margin-top:24px}
 .aboutBtn{border-radius:19px;height:38px;padding:0 14px;flex:none}
-.brandBtn{background:none;color:var(--text);font-size:19px;font-weight:700;padding:0;text-align:left;letter-spacing:-.02em}
-.brandBtn:hover{background:none;transform:none;opacity:.7}
+.brandBtn{display:inline-flex;align-items:center;gap:8px;background:var(--soft);color:var(--text);font-size:16px;font-weight:700;padding:6px 14px 6px 6px;border-radius:14px;letter-spacing:-.01em}
+.brandBtn:hover{background:var(--accent2)}
+.mark{width:26px;height:26px;border-radius:9px;background:var(--accent);color:#fff;font-style:normal;font-size:14px;font-weight:800;display:grid;place-items:center}
+.camWrap{position:relative;border-radius:14px;overflow:hidden;background:#000;aspect-ratio:4/3}
+.camWrap video{width:100%;height:100%;object-fit:cover;display:block}
+.frame{position:absolute;inset:22% 12%;border:2px solid #fff;border-radius:12px;box-shadow:0 0 0 999px rgba(0,0,0,.35)}
+.frame::after{content:"";position:absolute;left:6px;right:6px;top:50%;height:2px;background:var(--path);animation:scanline 1.6s ease-in-out infinite alternate}
+@keyframes scanline{from{top:10%}to{top:90%}}
 </style>
 </head>
 <body class="start">
 <section id="welcome">
-  <div class="brand"><span>● NaviShop</span><span style="display:flex;gap:8px"><button class="sec aboutBtn">О нас</button><button class="sec themeBtn" style="flex:none">🌙</button></span></div>
+  <div class="brand"><span style="display:flex;gap:8px"><button class="brandBtn" style="flex:none"><i class="mark">N</i>NaviShop</button><button class="sec aboutBtn" style="flex:none">О нас</button></span><button class="sec themeBtn" style="flex:none">🌙</button></div>
   <h2>Где будем<br>делать покупки?</h2>
   <p class="sub">Выберите магазин — покажем каталог, цены и путь каждому товару.</p>
   <div id="welcomeList"></div>
@@ -128,7 +134,7 @@ button:hover{box-shadow:none;filter:none}
   <div class="stat" id="stat"></div>
 </section>
 <header>
-  <div class="row" style="align-items:center"><button id="back" class="brandBtn" style="flex:1" title="В главное меню">● NaviShop</button><button class="sec aboutBtn">О нас</button><button class="sec themeBtn" style="flex:none">🌙</button></div>
+  <div class="row" style="align-items:center;gap:8px"><button id="back" class="brandBtn" style="flex:none" title="В главное меню"><i class="mark">N</i>NaviShop</button><button class="sec aboutBtn" style="flex:none">О нас</button><span style="flex:1"></span><button class="sec themeBtn" style="flex:none">🌙</button></div>
   <div class="zone" id="curStore" style="margin-top:4px"></div>
 </header>
 <main>
@@ -147,10 +153,13 @@ button:hover{box-shadow:none;filter:none}
   </section>
 
   <section id="tab-scan" class="hide">
-    <div class="hint">Сканер штрихкодов (демо): введите код или нажмите на пример.</div>
+    <button id="camBtn" style="width:100%;padding:14px">📷 Сканировать камерой</button>
+    <div id="camBox" class="hide card" style="margin-top:10px;padding:8px"><div class="camWrap"><video id="cam" playsinline muted></video><div class="frame"></div></div><button class="sec" id="camStop" style="width:100%;margin-top:8px">Остановить</button></div>
+    <div class="hint" id="camMsg"></div>
+    <div class="hint">Или введите штрихкод вручную:</div>
     <input id="code" inputmode="numeric" placeholder="Штрихкод, например 4600001">
     <div class="row" style="margin-top:8px">
-      <button id="scanBtn">Сканировать</button>
+      <button id="scanBtn">Найти</button>
       <button class="sec" id="rndBtn">Пример</button>
     </div>
     <div class="result" id="scanRes"></div>
@@ -180,6 +189,6 @@ button:hover{box-shadow:none;filter:none}
     <p class="note">Демо-версия: цены и наличие товаров условные.</p>
   </div>
 </div>
-<script src="NaviShop.js" onerror="document.body.className='';document.body.innerHTML='<div style=&quot;padding:24px;font-family:sans-serif&quot;><h2>Не найден файл NaviShop.js</h2><p>Положите NaviShop.js в одну папку с index.html и откройте index.html снова.</p></div>'"></script>
+<script src="script.js"></script>
 </body>
 </html>
